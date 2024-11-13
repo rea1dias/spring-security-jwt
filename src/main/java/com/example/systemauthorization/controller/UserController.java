@@ -25,7 +25,6 @@ public class UserController {
     @Autowired
     private AuthenticationManager manager;
 
-
     @GetMapping("/register")
     public String showRegister(Model model) {
         model.addAttribute("userDto", new UserDto());

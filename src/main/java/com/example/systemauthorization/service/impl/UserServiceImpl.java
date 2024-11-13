@@ -31,9 +31,4 @@ public class UserServiceImpl implements UserService {
         repository.save(user);
         return true;
     }
-
-    @Override
-    public boolean login(String username, String password) {
-        return false;
-    }
 }
