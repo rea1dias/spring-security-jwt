@@ -1,7 +1,6 @@
 package com.example.systemauthorization.config;
 
 import com.example.systemauthorization.filter.JwtFilter;
-import com.example.systemauthorization.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -20,13 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    private UserRepository repository;
-
-    @Autowired
     private JwtFilter filter;
-
-    @Autowired
-    private UserDetailsService service;
 
     @Bean
     public SecurityFilterChain SecurityFilterChain(HttpSecurity http) throws Exception {
@@ -42,9 +34,11 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/home/", true)
                         .failureUrl("/users/login?error=true")
                         .permitAll())
-                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);;
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+        ;
         return http.build();
     }
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

@@ -2,6 +2,7 @@ package com.example.systemauthorization.service.impl;
 
 import com.example.systemauthorization.dto.UserDto;
 import com.example.systemauthorization.entity.User;
+import com.example.systemauthorization.mapper.UserMapper;
 import com.example.systemauthorization.model.Role;
 import com.example.systemauthorization.repository.UserRepository;
 import com.example.systemauthorization.service.UserService;
@@ -17,15 +18,16 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
     private final BCryptPasswordEncoder passwordEncoder;
-
+    private final UserMapper mapper;
 
     @Override
     public boolean register(UserDto dto) {
         if (repository.existsByEmail(dto.getEmail())) {
             return false;
         }
-        User user = toEntity(dto);
+        User user = mapper.toEntity(dto);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setRole(Role.USER);
         repository.save(user);
         return true;
     }
@@ -34,22 +36,4 @@ public class UserServiceImpl implements UserService {
     public boolean login(String username, String password) {
         return false;
     }
-
-    public UserDto toDto(User user) {
-        UserDto dto = new UserDto();
-        dto.setId(user.getId());
-        dto.setUsername(user.getUsername());
-        dto.setEmail(user.getEmail());
-        return dto;
-    }
-
-    public User toEntity(UserDto dto) {
-        User user = new User();
-        user.setId(dto.getId());
-        user.setUsername(dto.getUsername());
-        user.setEmail(dto.getEmail());
-        user.setRole(Role.USER);
-        return user;
-    }
-
 }
