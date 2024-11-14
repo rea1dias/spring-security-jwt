@@ -1,0 +1,169 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f3f3f5;
+}
+
+.content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 200px 1fr 300px;
+    gap: 20px;
+    padding: 20px;
+}
+
+.sidebar, .right-sidebar {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    padding: 10px 0;
+    font-size: 16px;
+    cursor: pointer;
+    color: #555;
+}
+
+.profile-header {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.cover-photo {
+    background-color: #e0e0e0;
+    height: 150px;
+    border-radius: 8px 8px 0 0;
+    position: relative;
+}
+
+.cover-photo button {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    padding: 5px 10px;
+    background-color: #0a7fe8;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    margin-top: -50px;
+    padding: 0 20px;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    margin-right: 20px;
+}
+
+.profile-details h2 {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.profile-details p {
+    font-size: 14px;
+    color: #555;
+}
+
+.profile-nav {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-top: 20px;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.profile-nav button {
+    flex: 1;
+    padding: 10px;
+    background-color: #f3f3f5;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.photos-section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.photo-gallery {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.photo-gallery img {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.right-sidebar .work-info {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.work-info p {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.work-info span {
+    font-size: 12px;
+    color: #777;
+}
+
+.friends-section {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.friends-section h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.friend-list {
+    display: flex;
+    gap: 10px;
+}
+
+.friend-list img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}

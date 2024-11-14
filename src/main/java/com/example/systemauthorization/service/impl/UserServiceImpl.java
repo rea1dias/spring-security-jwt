@@ -8,8 +8,12 @@ import com.example.systemauthorization.repository.UserRepository;
 import com.example.systemauthorization.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -30,5 +34,20 @@ public class UserServiceImpl implements UserService {
         user.setRole(Role.USER);
         repository.save(user);
         return true;
+    }
+
+    @Override
+    public List<User> searchUserByUsername(String username) {
+        return repository.findByUsernameContainingIgnoreCase(username);
+    }
+
+    @Override
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication.getPrincipal() == null) {
+            throw new RuntimeException("No authenticated user found");
+        } else {
+            return (User) authentication.getPrincipal();
+        }
     }
 }

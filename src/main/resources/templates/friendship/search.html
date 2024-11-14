@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social Media Layout</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/friends-search.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -44,30 +44,32 @@
 
         <!-- Main Content -->
         <main>
-            <!-- Header -->
-            <header>
-                <div class="search-bar">
-                    <input type="text" placeholder="Что у вас нового?">
-                </div>
-            </header>
+            <div class="search-bar">
+                <form action="/friends/result" method="get">
+                    <input type="text" name="username" placeholder="Поиск по имени пользователя" required>
+                    <button type="submit">Поиск</button>
+                </form>
+            </div>
 
-            <!-- Stories Section -->
-            <section class="stories">
-                <div class="story">История</div>
-                <div class="story">MARVEL/DC</div>
-                <div class="story">Так себе...</div>
-                <div class="story">Приколы...</div>
-                <div class="story">Swamp</div>
-            </section>
-
-            <!-- Feed Section -->
-            <section class="feed">
-                <div class="post">
-                    <h3>КИНОМАНИЯ | Фильмы и сериалы</h3>
-                    <p>📰 «Я БЕРЕМЕННА ОТ ШАЛЯПИНА» 📰 Анастасия Волочкова объявила, что ждет ребенка от...</p>
-                    <img src="post-image.jpg" alt="Post Image">
+            <div id="search-results">
+                <h3>Результаты поиска:</h3>
+                <div class="user-list">
+                    <ul>
+                        <th:block th:each="user : ${users}">
+                            <li>
+                                <p><strong th:text="${user.username}"></strong></p>
+                                <p><span th:text="${user.email}"></span></p>
+                                <form action="/friends/send" method="post">
+                                    <input type="hidden" name="senderId" th:value="${senderId}"/>
+                                    <input type="hidden" name="receiverId" th:value="${user.id}"/>
+                                    <button type="submit">Добавить в друзья</button>
+                                </form>
+                                <span th:if="${message}" th:text="${message}"></span>
+                            </li>
+                        </th:block>
+                    </ul>
                 </div>
-            </section>
+            </div>
         </main>
 
         <!-- Right Sidebar -->
@@ -87,4 +89,3 @@
 </div>
 </body>
 </html>
-

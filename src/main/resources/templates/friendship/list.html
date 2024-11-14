@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social Media Layout</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/friends-list.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -20,11 +20,11 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="/home/profile">Моя страница</a></li>
+                    <li>Моя страница</li>
                     <li>Новости</li>
                     <li>Мессенджер</li>
                     <li>Звонки</li>
-                    <li><a href="/friends/list">Друзья</a></li>
+                    <li>Друзья</li>
                     <li>Сообщества</li>
                     <li>Фотографии</li>
                     <li>Видео</li>
@@ -46,27 +46,40 @@
         <main>
             <!-- Header -->
             <header>
-                <div class="search-bar">
-                    <input type="text" placeholder="Что у вас нового?">
-                </div>
+                <input type="text" placeholder="Поиск" class="search-bar">
             </header>
 
-            <!-- Stories Section -->
-            <section class="stories">
-                <div class="story">История</div>
-                <div class="story">MARVEL/DC</div>
-                <div class="story">Так себе...</div>
-                <div class="story">Приколы...</div>
-                <div class="story">Swamp</div>
-            </section>
-
-            <!-- Feed Section -->
-            <section class="feed">
-                <div class="post">
-                    <h3>КИНОМАНИЯ | Фильмы и сериалы</h3>
-                    <p>📰 «Я БЕРЕМЕННА ОТ ШАЛЯПИНА» 📰 Анастасия Волочкова объявила, что ждет ребенка от...</p>
-                    <img src="post-image.jpg" alt="Post Image">
+            <!-- Friends Section -->
+            <section class="friends-list">
+                <div class="friends-header">
+                    <button class="active">Все друзья</button>
+                    <button><a href="/friends/search">Друзья онлайн</button>
+                    <button>Найти друзей</button>
                 </div>
+                <input type="text" placeholder="Введите запрос" class="friends-search">
+
+                <div class="friend">
+                    <img src="profile1.jpg" alt="Friend's Photo">
+                    <div>
+                        <h4>Беккултан Байжанов</h4>
+                        <p>Написать сообщение • Позвонить</p>
+                    </div>
+                </div>
+
+                <div class="friend-requests">
+                    <ul>
+                        <th:block th:each="request : ${pendingRequests}">
+                            <li>
+                                <p><strong th:text="${request.sender.username}"></strong></p>
+                                <p th:text="${request.sender.email}"></p>
+                                <button th:attr="data-request-id=${request.senderId}" th:text="'Принять'"></button>
+                                <button th:attr="data-request-id=${request.senderId}" th:text="'Отклонить'"></button>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+
+                <!-- Repeat for other friends -->
             </section>
         </main>
 
@@ -82,9 +95,13 @@
                     <li>Комментарии</li>
                 </ul>
             </div>
+            <div class="game">
+                <h3>Блокада (3D FPS Online)</h3>
+                <p>Динамический кубический мир...</p>
+                <button>Играть</button>
+            </div>
         </aside>
     </div>
 </div>
 </body>
 </html>
-

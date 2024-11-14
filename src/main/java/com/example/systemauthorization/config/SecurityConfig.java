@@ -20,24 +20,24 @@ public class SecurityConfig {
     @Autowired
     private JwtFilter filter;
 
-    @Bean
-    public SecurityFilterChain SecurityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request
-                        .requestMatchers("/users/register", "/users/login", "/css/**").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/users/login")
-                        .loginProcessingUrl("/users/login")
-                        .defaultSuccessUrl("/home/", true)
-                        .failureUrl("/users/login?error=true")
-                        .permitAll())
-                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-        ;
-        return http.build();
-    }
+        @Bean
+        public SecurityFilterChain SecurityFilterChain(HttpSecurity http) throws Exception {
+            http
+                    .csrf(AbstractHttpConfigurer::disable)
+                    .authorizeHttpRequests(request -> request
+                            .requestMatchers("/users/register", "/users/login", "/css/**", "/friends/send").permitAll()
+                            .anyRequest().authenticated()
+                    )
+                    .formLogin(form -> form
+                            .loginPage("/users/login")
+                            .loginProcessingUrl("/users/login")
+                            .defaultSuccessUrl("/home/", true)
+                            .failureUrl("/users/login?error=true")
+                            .permitAll())
+                    .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+            ;
+            return http.build();
+        }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
