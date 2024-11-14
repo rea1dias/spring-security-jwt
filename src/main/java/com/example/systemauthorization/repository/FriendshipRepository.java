@@ -9,6 +9,7 @@ public interface FriendshipRepository extends JpaRepository<Friendship, Long> {
 
     boolean existsBySenderIdAndReceiverId(Long senderId, Long receiverId);
 
-    List<Friendship> findAllByReceiverIdAndAcceptedFalse(Long receiverId);
+
+    List<Friendship> findByReceiverIdAndAcceptedFalse(Long receiverId);
 
 }

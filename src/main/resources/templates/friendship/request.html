@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Social Media Layout</title>
-    <link rel="stylesheet" href="../css/friends-list.css">
+    <link rel="stylesheet" href="../css/friends-request.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
@@ -20,11 +20,11 @@
             </div>
             <nav>
                 <ul>
-                    <li>Моя страница</li>
+                    <li><a href="/home/profile">Моя страница</a></li>
                     <li>Новости</li>
                     <li>Мессенджер</li>
                     <li>Звонки</li>
-                    <li>Друзья</li>
+                    <li><a href="/friends/list">Друзья</a></li>
                     <li>Сообщества</li>
                     <li>Фотографии</li>
                     <li>Видео</li>
@@ -44,44 +44,32 @@
 
         <!-- Main Content -->
         <main>
-            <!-- Header -->
-            <header>
-                <input type="text" placeholder="Поиск" class="search-bar">
-            </header>
+            <div class="search-bar">
+                <form action="/friends/requests" method="get">
+                    <label>
+                        <input type="text" name="username" placeholder="Поиск по имени пользователя" required>
+                    </label>
+                    <button type="submit">Поиск</button>
+                </form>
+            </div>
 
-            <!-- Friends Section -->
-            <section class="friends-list">
-                <div class="friends-header">
-                    <button class="active">Все друзья</button>
-                    <button><a href="/friends/search">Друзья онлайн</a></button>
-                    <button>Найти друзей</button>
-                    <button><a href="/friends/requests">Заявки в друзья</a></button>
-                </div>
-                <input type="text" placeholder="Введите запрос" class="friends-search">
-
-                <div class="friend">
-                    <img src="profile1.jpg" alt="Friend's Photo">
-                    <div>
-                        <h4>Беккултан Байжанов</h4>
-                        <p>Написать сообщение • Позвонить</p>
-                    </div>
-                </div>
-
-                <div class="friend-requests">
+            <div class="requests">
+                <h3>Заявки в друзья</h3>
+                <div class="user-list">
                     <ul>
-                        <div>Запросы в друзья</div>
-                        <div th:each="request : ${pendingRequests}">
-                            <p><strong th:text="${request.senderId}">Sender Username</strong> отправил запрос на дружбу.</p>
-                            <form action="/friends/accept" method="post">
-                                <input type="hidden" name="requestId" th:value="${request.id}"/>
-                                <button type="submit">Принять</button>
-                            </form>
-                        </div>
+                        <th:block th:each="request : ${pendingRequests}">
+                            <li>
+                                <p><strong th:text="${request.senderUsername}"></strong></p>
+                                <p><span th:text="${request.senderEmail}"></span></p>
+                                <form action="/friends/accepts" method="post">
+                                    <input type="hidden" name="requestId" th:value="${request.id}"/>
+                                    <button type="submit">Принять заявку</button>
+                                </form>
+                            </li>
+                        </th:block>
                     </ul>
                 </div>
-
-                <!-- Repeat for other friends -->
-            </section>
+            </div>
         </main>
 
         <!-- Right Sidebar -->

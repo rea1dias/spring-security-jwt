@@ -5,8 +5,8 @@ import com.example.systemauthorization.entity.User;
 import com.example.systemauthorization.service.FriendshipService;
 import com.example.systemauthorization.service.UserService;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,11 +67,19 @@ public class FriendshipController {
         return "friendship/search";
     }
 
-    @GetMapping("/getFriends")
-    public String getFriends(Model model, Principal principal) {
-        Long receiverId = Long.parseLong(principal.getName());
-        List<FriendshipDto> pendingRequests = service.getPendingFriendRequests(receiverId);
-        model.addAttribute("pendingRequests", pendingRequests);
-        return "friendship/list";
+    @GetMapping("/requests")
+    public String showPendingRequests(Model model, Authentication authentication) {
+        try {
+            String username = authentication.getName();
+            User user = userService.findByUsername(username);
+            List<FriendshipDto> pendingRequests = service.getPendingFriendRequests(user.getId());
+            model.addAttribute("pendingRequests", pendingRequests);
+
+            return "friendship/request";
+        } catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+            return "friendship/request";
+        }
     }
+
 }

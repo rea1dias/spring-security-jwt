@@ -1,6 +1,7 @@
 package com.example.systemauthorization.service;
 
 import com.example.systemauthorization.dto.FriendshipDto;
+import com.example.systemauthorization.entity.Friendship;
 
 import java.util.List;
 

@@ -9,4 +9,5 @@ public interface UserService {
     boolean register(UserDto dto);
     List<User> searchUserByUsername(String username);
     User getCurrentUser();
+    User findByUsername(String username);
 }

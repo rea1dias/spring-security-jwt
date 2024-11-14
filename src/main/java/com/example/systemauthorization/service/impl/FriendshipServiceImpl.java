@@ -9,8 +9,8 @@ import com.example.systemauthorization.repository.UserRepository;
 import com.example.systemauthorization.service.FriendshipService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class FriendshipServiceImpl implements FriendshipService {
@@ -34,7 +34,6 @@ public class FriendshipServiceImpl implements FriendshipService {
         if (repository.existsBySenderIdAndReceiverId(senderId, receiverId)) {
             throw new RuntimeException("Sender and Receiver already exists");
         }
-
         Friendship friendship = new Friendship();
         friendship.setSender(sender);
         friendship.setReceiver(receiver);
@@ -42,18 +41,22 @@ public class FriendshipServiceImpl implements FriendshipService {
         repository.save(friendship);
     }
 
-    public Long getSenderIdByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .map(User::getId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
-    }
-
     @Override
     public List<FriendshipDto> getPendingFriendRequests(Long receiverId) {
-        List<Friendship> friendships = repository.findAllByReceiverIdAndAcceptedFalse(receiverId);
+        List<Friendship> pendingRequests = repository.findByReceiverIdAndAcceptedFalse(receiverId);
 
-        return friendships.stream()
-                .map(mapper::toDto)
-                .collect(Collectors.toList());
+        List<FriendshipDto> dtos = new ArrayList<>();
+        for (Friendship friendship : pendingRequests) {
+            FriendshipDto dto = new FriendshipDto(
+                    friendship.getId(),
+                    friendship.getSender().getId(),
+                    friendship.getSender().getUsername(),
+                    friendship.getSender().getEmail(),
+                    friendship.getReceiver().getId(),
+                    friendship.isAccepted()
+            );
+            dtos.add(dto);
+        }
+        return dtos;
     }
 }
