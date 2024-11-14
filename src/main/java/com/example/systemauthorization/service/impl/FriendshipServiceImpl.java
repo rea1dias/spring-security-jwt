@@ -34,11 +34,11 @@ public class FriendshipServiceImpl implements FriendshipService {
         if (repository.existsBySenderIdAndReceiverId(senderId, receiverId)) {
             throw new RuntimeException("Sender and Receiver already exists");
         }
+
         Friendship friendship = new Friendship();
         friendship.setSender(sender);
         friendship.setReceiver(receiver);
         friendship.setAccepted(false);
-
         repository.save(friendship);
     }
 
