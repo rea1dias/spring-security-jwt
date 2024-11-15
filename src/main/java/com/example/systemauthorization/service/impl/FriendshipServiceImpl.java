@@ -59,4 +59,17 @@ public class FriendshipServiceImpl implements FriendshipService {
         }
         return dtos;
     }
+
+    @Override
+    public void acceptPendingRequests(Long requestId) {
+        Friendship friendship = repository.findById(requestId).orElseThrow(() -> new RuntimeException("Friendship not found"));
+        friendship.setAccepted(true);
+        repository.save(friendship);
+    }
+
+    @Override
+    public void declinePendingRequests(Long requestId) {
+        Friendship friendship = repository.findById(requestId).orElseThrow(() -> new RuntimeException("Friendship not found"));
+        repository.delete(friendship);
+    }
 }

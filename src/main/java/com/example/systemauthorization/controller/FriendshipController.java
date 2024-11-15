@@ -82,4 +82,19 @@ public class FriendshipController {
         }
     }
 
+    @PostMapping("/accept")
+    public String acceptPendingRequests(@RequestParam("requestId") Long requestId, Model model) {
+        service.acceptPendingRequests(requestId);
+        model.addAttribute("message", "Friend request accepted");
+        return "friendship/request";
+    }
+
+    @PostMapping("/decline")
+    public String declinePendingRequests(@RequestParam("requestId") Long requestId, Model model) {
+        service.declinePendingRequests(requestId);
+        model.addAttribute("message", "Friend request declined");
+        return "friendship/request";
+    }
+
+
 }

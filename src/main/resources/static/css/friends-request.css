@@ -54,17 +54,104 @@ main {
 }
 
 /* Стили для блока заявок в друзья */
-.requests {
-    padding: 10px;
-    margin-top: 20px;
+.requests-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.requests-container h2 {
     text-align: center;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-.requests h3 {
-    margin-bottom: 15px;
-    font-size: 20px;
+.alert {
+    background: #e6ffe6;
+    color: #4CAF50;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: bold;
 }
 
+.requests-list {
+    list-style: none;
+    padding: 0;
+}
+
+.request-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.request-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.request-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.username {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+.email {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.request-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.accept-btn,
+.decline-btn {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.accept-btn {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.accept-btn:hover {
+    background-color: #45a049;
+}
+
+.decline-btn {
+    background-color: #f44336;
+    color: #fff;
+}
+
+.decline-btn:hover {
+    background-color: #e53935;
+}
 .user-list ul {
     list-style: none;
     padding: 0;

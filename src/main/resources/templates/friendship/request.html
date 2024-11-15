@@ -61,10 +61,22 @@
                             <li>
                                 <p><strong th:text="${request.senderUsername}"></strong></p>
                                 <p><span th:text="${request.senderEmail}"></span></p>
-                                <form action="/friends/accepts" method="post">
+
+                                <form action="/friends/accept" method="post">
                                     <input type="hidden" name="requestId" th:value="${request.id}"/>
                                     <button type="submit">Принять заявку</button>
                                 </form>
+
+                                <form action="/friends/decline" method="post" style="display:inline;">
+                                    <input type="hidden" name="requestId" th:value="${request.id}" />
+                                    <button type="submit">Отклонить заявку</button>
+                                </form>
+
+                                <div th:if="${message}" class="alert">
+                                    <p th:text="${message}"></p>
+                                </div>
+
+
                             </li>
                         </th:block>
                     </ul>
