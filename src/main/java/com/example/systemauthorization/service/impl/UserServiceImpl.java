@@ -44,8 +44,10 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<User> searchUserByUsername(String username) {
-        return repository.findByUsernameContainingIgnoreCase(username);
+    public List<User> searchUserByUsername(String username, Long currentUserId) {
+        return repository.findByUsernameContainingIgnoreCase(username).stream()
+                .filter(user -> !user.getId().equals(currentUserId))
+                .toList();
     }
 
     @Override

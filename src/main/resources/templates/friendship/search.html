@@ -64,7 +64,14 @@
                                     <input type="hidden" name="receiverId" th:value="${user.id}"/>
                                     <button type="submit">Добавить в друзья</button>
                                 </form>
-                                <span th:if="${message}" th:text="${message}"></span>
+
+                                <div class="error-message" th:if="${error}">
+                                    <p th:text="${error}"></p>
+                                </div>
+
+                                <div class="success-message" th:if="${message}">
+                                    <p th:text="${message}"></p>
+                                </div>
                             </li>
                         </th:block>
                     </ul>

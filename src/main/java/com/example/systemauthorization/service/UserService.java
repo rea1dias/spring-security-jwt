@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserService {
     boolean register(UserDto dto);
-    List<User> searchUserByUsername(String username);
+    List<User> searchUserByUsername(String username, Long currentUserId);
     User getCurrentUser();
     User findByUsername(String username);
 }

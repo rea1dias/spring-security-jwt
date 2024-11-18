@@ -1,5 +1,6 @@
 package com.example.systemauthorization.mapper;
 
+import com.example.systemauthorization.dto.FriendDto;
 import com.example.systemauthorization.dto.UserDto;
 import com.example.systemauthorization.entity.User;
 import org.mapstruct.Mapper;
@@ -8,4 +9,5 @@ import org.mapstruct.Mapper;
 public interface UserMapper {
     UserDto toDto(User user);
     User toEntity(UserDto dto);
+    FriendDto toFriendDto(User user);
 }

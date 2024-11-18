@@ -1,11 +1,11 @@
 package com.example.systemauthorization.controller;
 
+import com.example.systemauthorization.dto.FriendDto;
 import com.example.systemauthorization.dto.FriendshipDto;
 import com.example.systemauthorization.entity.User;
 import com.example.systemauthorization.service.FriendshipService;
 import com.example.systemauthorization.service.UserService;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,8 +33,18 @@ public class FriendshipController {
     }
 
     @GetMapping("/list")
-    public String showFriends(Model model) {
-        return "friendship/list";
+    public String showFriends(Principal principal, Model model) {
+        try {
+            String username = principal.getName();
+            User user = userService.findByUsername(username);
+            Long userId = user.getId();
+            List<FriendDto> friends = service.getAllFriends(userId);
+            model.addAttribute("friends", friends);
+            return "friendship/list";
+        } catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+            return "friendship/list";
+        }
     }
 
     @GetMapping("/search")
@@ -47,7 +57,7 @@ public class FriendshipController {
         User currentUser = userService.getCurrentUser();
         List<User> users = new ArrayList<>();
         if (username != null && !username.trim().isEmpty()) {
-            users = userService.searchUserByUsername(username);
+            users = userService.searchUserByUsername(username, currentUser.getId());
         }
         model.addAttribute("users", users);
         model.addAttribute("senderId", currentUser.getId());
@@ -62,7 +72,7 @@ public class FriendshipController {
             service.sendFriendRequest(senderId, receiverId);
             model.addAttribute("message", "Friend request sent successfully");
         } catch (RuntimeException e) {
-            model.addAttribute("message", e.getMessage());
+            model.addAttribute("error", e.getMessage());
         }
         return "friendship/search";
     }

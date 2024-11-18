@@ -1,5 +1,6 @@
 package com.example.systemauthorization.service;
 
+import com.example.systemauthorization.dto.FriendDto;
 import com.example.systemauthorization.dto.FriendshipDto;
 
 import java.util.List;
@@ -10,4 +11,5 @@ public interface FriendshipService {
     List<FriendshipDto> getPendingFriendRequests(Long receiverId);
     void acceptPendingRequests(Long requestId);
     void declinePendingRequests(Long requestId);
+    List<FriendDto> getAllFriends(Long userId);
 }

@@ -20,11 +20,11 @@
             </div>
             <nav>
                 <ul>
-                    <li>Моя страница</li>
+                    <li><a href="/home/profile">Моя страница</a></li>
                     <li>Новости</li>
                     <li>Мессенджер</li>
                     <li>Звонки</li>
-                    <li>Друзья</li>
+                    <li><a href="/friends/list">Друзья</a></li>
                     <li>Сообщества</li>
                     <li>Фотографии</li>
                     <li>Видео</li>
@@ -59,28 +59,17 @@
                 </div>
                 <input type="text" placeholder="Введите запрос" class="friends-search">
 
-                <div class="friend">
+                <h3>Список друзей</h3>
+
+                <div class="friend" th:block th:each="friend : ${friends}">
                     <img src="profile1.jpg" alt="Friend's Photo">
                     <div>
-                        <h4>Беккултан Байжанов</h4>
+                        <h4><strong th:text="${friend.username}"></strong></h4>
+                        <h5><span th:text="${friend.email}"></span></h5>
                         <p>Написать сообщение • Позвонить</p>
                     </div>
                 </div>
 
-                <div class="friend-requests">
-                    <ul>
-                        <div>Запросы в друзья</div>
-                        <div th:each="request : ${pendingRequests}">
-                            <p><strong th:text="${request.senderId}">Sender Username</strong> отправил запрос на дружбу.</p>
-                            <form action="/friends/accept" method="post">
-                                <input type="hidden" name="requestId" th:value="${request.id}"/>
-                                <button type="submit">Принять</button>
-                            </form>
-                        </div>
-                    </ul>
-                </div>
-
-                <!-- Repeat for other friends -->
             </section>
         </main>
 
