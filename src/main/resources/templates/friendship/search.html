@@ -20,7 +20,7 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="/home/profile">Моя страница</a></li>
+                    <li><a href="/profile/view">Моя страница</a></li>
                     <li>Новости</li>
                     <li>Мессенджер</li>
                     <li>Звонки</li>
@@ -62,6 +62,7 @@
                                 <form action="/friends/send" method="post">
                                     <input type="hidden" name="senderId" th:value="${senderId}"/>
                                     <input type="hidden" name="receiverId" th:value="${user.id}"/>
+                                    <a th:href="@{/profile/view(userId=${user.id})}">View Profile</a>
                                     <button type="submit">Добавить в друзья</button>
                                 </form>
 

@@ -33,7 +33,8 @@ public class FriendshipController {
     }
 
     @GetMapping("/list")
-    public String showFriends(Principal principal, Model model) {
+    public String showFriends(Principal principal,
+                              Model model) {
         try {
             String username = principal.getName();
             User user = userService.findByUsername(username);
@@ -53,7 +54,8 @@ public class FriendshipController {
     }
 
     @GetMapping("/result")
-    public String searchFriends(Model model, @RequestParam(value = "username", required = false) String username) {
+    public String searchFriends(Model model,
+                                @RequestParam(value = "username", required = false) String username) {
         User currentUser = userService.getCurrentUser();
         List<User> users = new ArrayList<>();
         if (username != null && !username.trim().isEmpty()) {

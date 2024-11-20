@@ -1,6 +1,5 @@
 package com.example.systemauthorization.repository;
 
-import com.example.systemauthorization.dto.FriendshipDto;
 import com.example.systemauthorization.entity.Friendship;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

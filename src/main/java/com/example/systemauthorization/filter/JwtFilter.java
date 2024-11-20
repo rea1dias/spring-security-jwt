@@ -22,7 +22,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     public JwtFilter(JwtUtil util, UserDetailsService service) {
         this.util = util;
-        this.service = service  ;
+        this.service = service;
     }
 
     protected void doFilterInternal(HttpServletRequest request,

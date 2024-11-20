@@ -10,4 +10,5 @@ public interface UserMapper {
     UserDto toDto(User user);
     User toEntity(UserDto dto);
     FriendDto toFriendDto(User user);
+
 }

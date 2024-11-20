@@ -20,7 +20,7 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="/home/profile">Моя страница</a></li>
+                    <li><a href="/profile/view">Моя страница</a></li>
                     <li>Новости</li>
                     <li>Мессенджер</li>
                     <li>Звонки</li>
@@ -64,7 +64,9 @@
                 <div class="friend" th:block th:each="friend : ${friends}">
                     <img src="profile1.jpg" alt="Friend's Photo">
                     <div>
-                        <h4><strong th:text="${friend.username}"></strong></h4>
+                        <a th:href="@{/profile/view(userId=${friend.id})}">
+                            <strong th:text="${friend.username}"></strong></h4>
+                        </a>
                         <h5><span th:text="${friend.email}"></span></h5>
                         <p>Написать сообщение • Позвонить</p>
                     </div>

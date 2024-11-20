@@ -1,6 +1,7 @@
 package com.example.systemauthorization.service.impl;
 
 import com.example.systemauthorization.dto.UserDto;
+import com.example.systemauthorization.entity.Profile;
 import com.example.systemauthorization.entity.User;
 import com.example.systemauthorization.mapper.UserMapper;
 import com.example.systemauthorization.model.Role;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -33,6 +35,11 @@ public class UserServiceImpl implements UserService {
         User user = mapper.toEntity(dto);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setRole(Role.USER);
+
+        Profile profile = new Profile();
+        profile.setUser(user);
+        user.setProfile(profile);
+
         repository.save(user);
         return true;
     }
@@ -58,5 +65,10 @@ public class UserServiceImpl implements UserService {
         } else {
             return (User) authentication.getPrincipal();
         }
+    }
+
+    @Override
+    public Optional<User> findById(Long userId) {
+        return repository.findById(userId);
     }
 }

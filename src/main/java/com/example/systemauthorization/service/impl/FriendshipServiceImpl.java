@@ -49,9 +49,7 @@ public class FriendshipServiceImpl implements FriendshipService {
     @Override
     public List<FriendshipDto> getPendingFriendRequests(Long receiverId) {
         List<Friendship> pendingRequests = repository.findByReceiverIdAndAcceptedFalse(receiverId);
-
         List<FriendshipDto> dtos = new ArrayList<>();
-
         for (Friendship friendship : pendingRequests) {
             FriendshipDto dto = new FriendshipDto(
                     friendship.getId(),
